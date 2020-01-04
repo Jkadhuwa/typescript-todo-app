@@ -1,13 +1,19 @@
-import express from 'express';
-import todos from '../modules/todo';
+import { Router } from "express";
+import {
+  getAllTodos,
+  createTodo,
+  updateTodo,
+  getTodo,
+  deleteTodo
+} from "../controllers/todo";
+import { checkValidInputs } from "../middlewares/todoValidation";
 
-const router = express.Router();
+const router = Router();
 
-router.get('/', todos.getAllTodos);
-// router.post('/', Todos.getAll );
-// router.get('/todo:id', Todos.getAll );
-// router.put('/todo:id', Todos.getAll );
-// router.delete('/todo:id', Todos.getAll );
-
+router.get("/", getAllTodos);
+router.post("/", checkValidInputs, createTodo);
+router.put("/:todoId", updateTodo);
+router.get("/:todoId", getTodo);
+router.delete("/:todoId", deleteTodo);
 
 export default router;
